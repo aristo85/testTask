@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: colors.secondary,
-    fontFamily: 'open-sans',
     fontSize: 18,
     textAlign: 'center',
   },
