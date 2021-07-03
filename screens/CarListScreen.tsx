@@ -6,7 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   Dimensions,
-  StatusBar,
+  SafeAreaView,
 } from 'react-native';
 import {requestCarList} from '../redux/env/thunk/carThunk';
 import {useReduxDispatch, useReduxSelector} from '../redux/hooks';
@@ -44,45 +44,47 @@ const CarListScreen: React.FC<ScreenProps> = ({navigation}) => {
   }, []);
   return (
     <View style={styles.container}>
-      <TextTitle style>My favorite Cars!</TextTitle>
+      <SafeAreaView style={{flex: 1}}>
+        <TextTitle style>My favorite Cars!</TextTitle>
 
-      {carList.length > 0 ? (
-        <View
-          style={{
-            marginBottom: 50,
-            height: Dimensions.get('window').height - 90,
-          }}>
-          <View style={styles.sortContainer}>
-            <ButtonSyled
-              bodyStyle={styles.btn}
-              textStyle
-              onPress={() => sortByName()}>
-              Sort by name
-            </ButtonSyled>
-            <ButtonSyled
-              bodyStyle={styles.btn}
-              textStyle
-              onPress={() => sortByRating()}>
-              Sort by rating
-            </ButtonSyled>
+        {carList.length > 0 ? (
+          <View
+            style={{
+              marginBottom: 50,
+              height: Dimensions.get('window').height - 90,
+            }}>
+            <View style={styles.sortContainer}>
+              <ButtonSyled
+                bodyStyle={styles.btn}
+                textStyle
+                onPress={() => sortByName()}>
+                Sort by name
+              </ButtonSyled>
+              <ButtonSyled
+                bodyStyle={styles.btn}
+                textStyle
+                onPress={() => sortByRating()}>
+                Sort by rating
+              </ButtonSyled>
+            </View>
+            <FlatList
+              data={carList}
+              renderItem={({item}) => (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate(MainRoutes.Car, {item})}>
+                  <Card style>
+                    <Text>Model: {item.model}</Text>
+                    <Text>Rating: {item.rating}</Text>
+                  </Card>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
           </View>
-          <FlatList
-            data={carList}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                onPress={() => navigation.navigate(MainRoutes.Car, {item})}>
-                <Card style>
-                  <Text>Model: {item.model}</Text>
-                  <Text>Rating: {item.rating}</Text>
-                </Card>
-              </TouchableOpacity>
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        </View>
-      ) : (
-        <Text>No data, check server!</Text>
-      )}
+        ) : (
+          <Text>No data, check server!</Text>
+        )}
+      </SafeAreaView>
     </View>
   );
 };
