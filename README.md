@@ -1,4 +1,4 @@
-# RN-Task
+# RN-Task, task project with 2 screens. (Reduxtoolkit, RN-navigation)
 ## Инструкция
 ### Android:
 **1.**
