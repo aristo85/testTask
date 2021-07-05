@@ -29,7 +29,7 @@ const envSlice = createSlice({
     sorListtByRating: (state, action) => ({
       ...state,
       carList: [...state.carList].sort((a, b) =>
-        a.rating > b.rating ? 1 : -1,
+        a.rating > b.rating ? -1 : +1,
       ),
     }),
   },
